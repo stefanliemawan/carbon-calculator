@@ -1,21 +1,15 @@
-from api import db, Emissions_Per_Item
+import pandas as pd
+from sqlalchemy import create_engine, text
 
-db.drop_all()
-db.create_all()
+from api import app, db
 
-rice = Emissions_Per_Item(
-    index = "1.1.1.1",
-    item = "Rice",
-    ghg = 0.1537316273723316,
-    co2 = 0.100415214957414,
-    nrg = 0.02337605584822312
-)
+engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
 
-db.session.add(rice)
+emissions_per_item_df = pd.read_csv("../clean_datasets/emissions_per_item.csv")
+emissions_per_item_df.to_sql("emissions_per_item", con=engine, index=False, if_exists="replace")
 
-db.session.commit()
-
-print(rice.item)
-print(rice.ghg)
-
-print(Emissions_Per_Item.query.all())
+with engine.connect() as conn:
+    result = conn.execute(text("SELECT * FROM emissions_per_item"))
+      
+    for row in result:
+        print(row)
