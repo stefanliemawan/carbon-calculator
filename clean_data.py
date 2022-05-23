@@ -7,13 +7,22 @@ emissions_per_item_df = pd.read_excel(
     usecols="B:E"
 )
 
+
+emissions_per_item_df[["index", "item"]] = emissions_per_item_df["Unnamed: 1"].str.split(n=1, expand=True)
+
+columns = emissions_per_item_df.columns.tolist()
+
+columns = columns[-2:] + columns[1:-2]
+
+emissions_per_item_df = emissions_per_item_df[columns]
+
 emissions_per_item_df.rename(
     columns={
-        "Unnamed: 1" : "item"
+        "GHG (kgCO2e per £)": "ghg_kgco2e_per_£",
+        "CO2 (kgCO2 per £)": "co2_kgco2_per_£",
+        "NRG (kg oil equivalent per £)": "nrg_kg_oil_equivalent_per_£"
     }, 
     inplace=True
 )
-
-emissions_per_item_df["item"] = emissions_per_item_df["item"].apply(lambda x: " ".join(x.split(" ")[1:]))
 
 emissions_per_item_df.to_csv("./clean_datasets/emissions_per_item.csv", index=False)
