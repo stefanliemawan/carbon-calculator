@@ -8,7 +8,8 @@ emissions_per_item_df = pd.read_excel(
 )
 
 
-emissions_per_item_df[["index", "item"]] = emissions_per_item_df["Unnamed: 1"].str.split(n=1, expand=True)
+emissions_per_item_df[["index", "item_name"]] = emissions_per_item_df["Unnamed: 1"].str.split(n=1, expand=True)
+emissions_per_item_df["item_name"] = emissions_per_item_df["item_name"].str.lower()
 
 columns = emissions_per_item_df.columns.tolist()
 
@@ -18,9 +19,9 @@ emissions_per_item_df = emissions_per_item_df[columns]
 
 emissions_per_item_df.rename(
     columns={
-        "GHG (kgCO2e per £)": "ghg_kgco2e_per_£",
-        "CO2 (kgCO2 per £)": "co2_kgco2_per_£",
-        "NRG (kg oil equivalent per £)": "nrg_kg_oil_equivalent_per_£"
+        "GHG (kgCO2e per £)": "ghg_kgco2e_per_gbp",
+        "CO2 (kgCO2 per £)": "co2_kgco2_per_gbp",
+        "NRG (kg oil equivalent per £)": "nrg_kg_oil_equivalent_per_gbp"
     }, 
     inplace=True
 )
