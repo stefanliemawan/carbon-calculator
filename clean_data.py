@@ -8,7 +8,7 @@ emissions_per_item_df = pd.read_excel(
 )
 
 
-emissions_per_item_df[["index", "item_name"]] = emissions_per_item_df["Unnamed: 1"].str.split(n=1, expand=True)
+emissions_per_item_df[["item_index", "item_name"]] = emissions_per_item_df["Unnamed: 1"].str.split(n=1, expand=True)
 emissions_per_item_df["item_name"] = emissions_per_item_df["item_name"].str.lower()
 
 columns = emissions_per_item_df.columns.tolist()
