@@ -1,7 +1,24 @@
-POST http://localhost:5000/ HTTP/1.1
+POST http://localhost:5000/item_emissions HTTP/1.1
 Content-Type: application/json
 
 {
     "item_name": "rice",
     "price": 2
+}
+
+####
+POST http://localhost:5000/user/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "asd@gmail.com",
+    "username": "jashdasd",
+    "password": "1283asndw"
+}
+
+####
+POST http://localhost:5000/user_emission/ HTTP/1.1
+Content-Type: application/json
+
+{
 }

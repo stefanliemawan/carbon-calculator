@@ -1,6 +1,6 @@
 import pandas as pd
 
-emissions_per_item_df = pd.read_excel(
+item_emissions_df = pd.read_excel(
     io="./datasets/Consumption_emissions_March_21_final_accessible_rev.xls", 
     sheet_name="Conversion_factors_2018",
     header=1,
@@ -8,16 +8,16 @@ emissions_per_item_df = pd.read_excel(
 )
 
 
-emissions_per_item_df[["item_index", "item_name"]] = emissions_per_item_df["Unnamed: 1"].str.split(n=1, expand=True)
-emissions_per_item_df["item_name"] = emissions_per_item_df["item_name"].str.lower()
+item_emissions_df[["item_index", "item_name"]] = item_emissions_df["Unnamed: 1"].str.split(n=1, expand=True)
+item_emissions_df["item_name"] = item_emissions_df["item_name"].str.lower()
 
-columns = emissions_per_item_df.columns.tolist()
+columns = item_emissions_df.columns.tolist()
 
 columns = columns[-2:] + columns[1:-2]
 
-emissions_per_item_df = emissions_per_item_df[columns]
+item_emissions_df = item_emissions_df[columns]
 
-emissions_per_item_df.rename(
+item_emissions_df.rename(
     columns={
         "GHG (kgCO2e per £)": "ghg_kgco2e_per_gbp",
         "CO2 (kgCO2 per £)": "co2_kgco2_per_gbp",
@@ -26,4 +26,4 @@ emissions_per_item_df.rename(
     inplace=True
 )
 
-emissions_per_item_df.to_csv("./clean_datasets/emissions_per_item.csv", index=False)
+item_emissions_df.to_csv("./clean_datasets/item_emissions.csv", index=False)

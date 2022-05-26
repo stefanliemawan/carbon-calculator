@@ -1,11 +1,13 @@
 import shortuuid
+import hashlib
+import os
 
-from models import *
+# salt = os.urandom(32)
 
 def generate_id(tablename, index):
     match tablename:
-        case "emissions_per_item":
-            prefix = "epi"
+        case "item_emissions":
+            prefix = "iem"
         case "users":
             prefix = "usr"
         case "user_emissions":
@@ -13,6 +15,11 @@ def generate_id(tablename, index):
 
     uid = shortuuid.uuid()
 
-    id = f"{prefix}{uid}{index}"
+    id = f"{prefix}-{uid}{index}"
 
     return id
+
+def hash_password(password):
+    key = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), 100000)
+    print(key)
+    return key

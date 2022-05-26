@@ -19,3 +19,5 @@ db = SQLAlchemy(app)
 
 engine = db.create_engine(sa_url=app.config["SQLALCHEMY_DATABASE_URI"], engine_opts=app.config["SQLALCHEMY_ENGINE_OPTIONS"])
 
+import user as user
+app.register_blueprint(user.bp)

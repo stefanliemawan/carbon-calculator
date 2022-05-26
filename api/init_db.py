@@ -1,23 +1,20 @@
 import pandas as pd
-from sqlalchemy import text
-import uuid
 
-from api import engine
-from utils import generate_id
+from main import engine, db
+import utils as utils
 
-emissions_per_item_df = pd.read_csv("../clean_datasets/emissions_per_item.csv")
-emissions_per_item_df["item_id"] = [ generate_id("emissions_per_item", index) for index in emissions_per_item_df.index]
+db.drop_all()
 
-columns = emissions_per_item_df.columns.tolist()
+item_emissions_df = pd.read_csv("../clean_datasets/item_emissions.csv")
+item_emissions_df["item_id"] = [ utils.generate_id("item_emissions", index) for index in item_emissions_df.index]
+
+columns = item_emissions_df.columns.tolist()
 
 columns = columns[-1:] + columns[1:-1]
 
-emissions_per_item_df = emissions_per_item_df[columns]
+item_emissions_df = item_emissions_df[columns]
 
-emissions_per_item_df.to_sql("emissions_per_item", con=engine, index=False, if_exists="replace")
+item_emissions_df.to_sql("item_emissions", con=engine, index=False, if_exists="replace")
 
-# with engine.connect() as conn:
-#     result = conn.execute(text("SELECT * FROM emissions_per_item"))
-      
-#     for row in result:
-#         print(row)
+db.create_all()
+db.session.commit()
