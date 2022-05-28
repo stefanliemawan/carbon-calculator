@@ -11,8 +11,8 @@ POST http://localhost:5000/user/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "asd@gmail.com",
-    "username": "jashdasd",
+    "email": "maasd23@gmail.com",
+    "username": "mehahahdasd",
     "password": "1283asndw"
 }
 
@@ -21,4 +21,11 @@ POST http://localhost:5000/user_emission/ HTTP/1.1
 Content-Type: application/json
 
 {
+    "user_id": "usr-K78oQQEe3zpswfTf5vA3vo0",
+    "items":[
+        {
+            "item_name": "rice",
+            "price_gbp": 1.5
+        }
+    ]
 }

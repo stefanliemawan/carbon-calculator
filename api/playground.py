@@ -1,3 +1,5 @@
-from main import db
+from api import db
+from models import Item_Emission
 
-print(db.sql.func.now())
+item_emission = Item_Emission.query.all()
+print(item_emission)
